@@ -2,7 +2,7 @@ const baseKey = require('../base-key')
 
 class animalKey extends baseKey {
   constructor(){
-    super(/^Animal.([0-9]+)[.]([a-zA-Z0-9]+)[.]([a-zA-Z0-9\-_|#$/\s]+)[.]([0-9]+)$/)
+    super(/^Teste.([0-9]+)$/)
     super.sendNotification = true
     super.topic = 'redis-renewer'
   }
