@@ -22,10 +22,12 @@
   "author": "Alexandre Yembo Leite",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.5.2",
     "azure": "^2.2.1-preview",
     "bluebird": "^3.5.1",
     "cluster": "^0.7.7",
     "mongoose": "^5.0.5",
+    "npm": "^5.8.0",
     "redis": "^2.8.0"
   },
   "devDependencies": {
