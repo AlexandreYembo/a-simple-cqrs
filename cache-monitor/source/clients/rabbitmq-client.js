@@ -1,38 +1,22 @@
-//const {RABBITMQ_SERVER} = require('../config')
+const {RABBITMQ_SERVER, RABBITMQ_CHANNEL} = require('../config')
 
 const amqp = require('amqplib/callback_api')
 
-// const connect = () => amqp.connect('amqp://localhost', (err, conn) => {
-//   conn.createChannel((err, ch) =>{
-//     let q = 'hello'
-//     ch.assertQueue(q, {durable: false})
+var objSend = null
+const sendToQueue = (obj) => { 
+    objSend = obj
+    connect()
+}
 
-//     for(i = 0; i < 100; i++){
-      
-//       ch.sendToQueue(q, new Buffer(JSON.stringify({id: i, name: "teste_" + i})))
-//       console.log("[x] Sent 'Hello World!'")
-//     }
-  
-//   })
+const connect = () => amqp.connect(`amqp://${RABBITMQ_SERVER}`, createChannel)
 
-//   setTimeout(() => {
-//     conn.close() 
-//     process.exit(0)
-//   }, 6000)
-// })
+const createChannel = (err, conn) =>   conn.createChannel(send)
 
-const connect = () => amqp.connect('amqp://localhost', (err, conn) => {
+const send = (err, ch) => {
+    let q = RABBITMQ_CHANNEL
+    ch.assertQueue(q, {durable: false})
+    ch.sendToQueue(q, new Buffer(JSON.stringify(objSend.body)))
+    console.log(`Object ${objSend.body} sent`)
+}
 
-  // Use the default 'amq.topic' exchange
-  conn.queue('my-queue', function(q){   
-      q.bind('#');
-
-      q.subscribe(function (message) {                
-          console.log(message);
-      });
-    });
-});
-
-
-connect()
-
+module.exports = {sendToQueue}

@@ -2,7 +2,7 @@ const baseKey = require('../base-key')
 
 class animalKey extends baseKey {
   constructor(){
-    super(/^Teste.([0-9]+)$/)
+    super(/^Animal.([0-9]+)$/)
     super.sendNotification = true
     super.topic = 'redis-renewer'
   }
@@ -12,10 +12,8 @@ class animalKey extends baseKey {
   }
 
   createMessage(result){
-    let customProperties = {cacheType: 'renew-keys'}
     let body = JSON.stringify({animalId: result[1]})
-
-    return { body, customProperties }
+    return { body }
   }
 }
 
