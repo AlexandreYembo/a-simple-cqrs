@@ -4,6 +4,7 @@ class baseKey{
     this.key = null
     this.sendNotification = false
     this.topic = undefined
+    this.redisObj = null
   }
 
   matchKey(key){
@@ -13,6 +14,10 @@ class baseKey{
 
   getObjectKey(){
     return this.pattern.exec(this.key)
+  }
+
+  setObjectRedis(obj){
+    this.redisObj = obj
   }
 }
 

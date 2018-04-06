@@ -2,16 +2,12 @@ const bluebird = require('bluebird')
 
 const config = require('../config'),
 redisClient = require('../clients/redis-client'),
-//serviceBus = require('../clients/servicebus-client')
 rabbitMqClient = require('../clients/rabbitmq-client'),
 keyBase = require('../keys-monitor/match-redis-key')
 
 global.Promise = bluebird
 
-const {REDIS_SERVER, REDIS_PASSWORD, REDIS_DATA_BASE, AZURE_SERVICE_BUS_CONNECTION_STRING} = config
-
-//const notificationService = serviceBus(AZURE_SERVICE_BUS_CONNECTION_STRING),
- const subscriber = redisClient.createClient(REDIS_SERVER, REDIS_PASSWORD)
+const {REDIS_SERVER, REDIS_PASSWORD, REDIS_DATA_BASE} = config
 
 const notificationResult = (valid, error) => valid && console.log('Send') || console.log(`error:${error}`)
 
@@ -21,8 +17,6 @@ const sendNotificationOnExpireKey = (redisKey) => {
   baseMatchKey && baseMatchKey.sendNotification
      ? rabbitMqClient.sendToQueue(baseMatchKey.getObjectKey())
      : notificationResult(false, `not recognized ${redisKey}`)
-  // ? notificationService.sendTopicMessage(baseMatchKey.getObjectKey(), baseMatchKey.topic, notificationResult(true))
-  // : notificationResult(false, `not recognized ${redisKey}`)
 }
 
-redisClient.subscribe(subscriber, `__keyevent@${REDIS_DATA_BASE}__:expired`, sendNotificationOnExpireKey)
+redisClient.subscribe(redisClient.createClient(REDIS_SERVER, REDIS_PASSWORD), `__keyevent@${REDIS_DATA_BASE}__:expired`, sendNotificationOnExpireKey)

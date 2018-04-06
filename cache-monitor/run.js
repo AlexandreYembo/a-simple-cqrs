@@ -12,6 +12,7 @@ if (cluster.isMaster){
 }
 else if(cluster.isWorker){
   require('./source/event-handler/sender')
+  require('./source/event-handler/receiver')
 
   //Event when has an exception, process is finished and new one is created.
  process.on('uncaughtException', ex => process.exit(1))
