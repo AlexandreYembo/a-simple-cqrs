@@ -12,7 +12,7 @@ class personKey extends baseKey {
   }
   
   createMessage(result){
-    let body = JSON.stringify({personId: result[1]})
+    let body = {personId: result[1]}
     return { body }
   }
 }

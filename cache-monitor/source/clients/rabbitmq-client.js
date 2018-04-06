@@ -8,7 +8,8 @@ const sendToQueue = (obj) => {
     connect(createChannelToSender)
 }
 
-const receiveQueue = (_callBack) => connect((err, conn) => createChannelToReceiver(err, conn, _callBack))
+const receiveQueue = (_callBack) => connect((err, conn) => 
+    createChannelToReceiver(err, conn, _callBack))
 
 const connect = (channel) => amqp.connect(`amqp://${RABBITMQ_SERVER}`, channel)
 
@@ -21,7 +22,8 @@ const send = (err, ch) => {
     console.log(`Object ${objQueue.body} sent`)
 }
 
-const createChannelToReceiver = (err, conn, _callBack) => conn.createChannel((err, ch) => receive(err, ch, _callBack))
+const createChannelToReceiver = (err, conn, _callBack) => conn.createChannel((err, ch) => 
+    receive(err, ch, _callBack))
 
 const receive = (err, ch, _callBack) => {
     let q = RABBITMQ_CHANNEL

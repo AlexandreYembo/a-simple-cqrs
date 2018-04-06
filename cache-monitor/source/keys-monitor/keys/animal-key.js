@@ -1,4 +1,5 @@
-const baseKey = require('../base-key')
+const baseKey = require('../base-key'),
+  animalSchema = require('../../schemas/animal-schema')
 
 class animalKey extends baseKey {
   constructor(){
@@ -12,9 +13,23 @@ class animalKey extends baseKey {
   }
 
   createMessage(result){
-    let body = JSON.stringify({animalId: result[1]})
+    let body = {animalId: result[1]}
     return { body }
   }
+
+  updateObjectRedis(obj){
+    listAllAnimal(obj)
+  }
+
+  listAllAnimal(obj){
+    animalSchema.getAll()
+      .then(listAnimals => updateCache(obj, listAnimals))
+  }
+
+  updateCache(obj, listAnimals){
+    // TO DO implement update object
+  }
+
 }
 
 module.exports = animalKey

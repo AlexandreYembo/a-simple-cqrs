@@ -16,7 +16,7 @@ class baseKey{
     return this.pattern.exec(this.key)
   }
 
-  setObjectRedis(obj){
+  updateObjectRedis(obj){
     this.redisObj = obj
   }
 }

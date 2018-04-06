@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/cache-monitor/source/clients/redis-client.js"
+            "program": "${workspaceFolder}/cache-monitor/source/event-handler/receiver.js"
         }
     ]
 }
