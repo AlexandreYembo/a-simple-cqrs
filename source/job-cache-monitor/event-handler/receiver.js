@@ -11,7 +11,6 @@ const { REDIS_SERVER, REDIS_PASSWORD, REDIS_DATA_BASE } = config
 
 const result = (message) => console.log(message)
 
-const receiveQueue = () => rabbitMqClient.receiveQueue(result)
+const receive = () => rabbitMqClient.receiveQueue(result)
 
-
-receiveQueue()
+receive()

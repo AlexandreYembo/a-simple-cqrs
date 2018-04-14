@@ -1,5 +1,5 @@
-const baseKey = require('../base-key'),
-  animalSchema = require('../../schemas/animal-schema')
+const baseKey = require('../base-key')
+//const animalSchema = require('../../schemas/animal-schema')
 
 class animalKey extends baseKey {
   constructor(){
@@ -18,17 +18,17 @@ class animalKey extends baseKey {
   }
 
   updateObjectRedis(obj){
-    listAllAnimal(obj)
+   // listAllAnimal(obj)
   }
 
-  listAllAnimal(obj){
-    animalSchema.getAll()
-      .then(listAnimals => updateCache(obj, listAnimals))
-  }
+  // listAllAnimal(obj){
+  //   animalSchema.getAll()
+  //     .then(listAnimals => updateCache(obj, listAnimals))
+  // }
 
-  updateCache(obj, listAnimals){
-    // TO DO implement update object
-  }
+  // updateCache(obj, listAnimals){
+  //   // TO DO implement update object
+  // }
 
 }
 
